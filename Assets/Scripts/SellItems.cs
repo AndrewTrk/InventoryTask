@@ -12,7 +12,9 @@ public class SellItems : MonoBehaviour
     {
         
     }
-
+    public int getItemId() {
+        return itemID;
+    }
     public void setItemID(int id) {
         itemID = id;
     }

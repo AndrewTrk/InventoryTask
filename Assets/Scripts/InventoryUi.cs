@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class InventoryUi : MonoBehaviour
 {
+
+    [SerializeField] private Image sk1Image;
+    [SerializeField] private Image sk2Image;
+    private bool shopkeeperbuttonState;
+
     private PlayerInventory inventory;
     private ShopkeeperOneInventory shopkeeperOneInventory;
     private ShopkeeperTwoInventory shopkeeperTwoInventory;
@@ -159,8 +164,53 @@ public class InventoryUi : MonoBehaviour
     }
     #endregion
 
-/*    private void sellFromPlayerToSkOne(int id)
+
+    #region uiFunctions
+    public void SwitchShopkeeperstoSellTo() {
+        if (shopkeeperbuttonState)
+        {
+            //sell to sk1 , so switch images and click listenerr
+            sk1Image.gameObject.SetActive(true);
+            sk2Image.gameObject.SetActive(false);
+            shopkeeperbuttonState = false;
+
+            foreach (Transform item in InstantiatedItems)
+            {
+                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
+                item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk1(id); });
+                  }
+        }
+        else {
+            //sell to sk2
+            sk1Image.gameObject.SetActive(false);
+            sk2Image.gameObject.SetActive(true);
+            shopkeeperbuttonState = true;
+
+            foreach (Transform item in InstantiatedItems)
+            {
+                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
+                item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk2(id); });
+            }
+
+        }
+    }
+
+    private void SellFromPlayerTosk1(int id)
     {
         GameManager.Instance.player.SellItem(id);
-    }*/
+        GameManager.Instance.shopkeeperOne.PurchaseItem(id);
+    }
+
+    private void SellFromPlayerTosk2(int id)
+    {
+        GameManager.Instance.player.SellItem(id);
+        GameManager.Instance.shopkeeperTwo.PurchaseItem(id);
+    }
+    #endregion
+    /*    private void sellFromPlayerToSkOne(int id)
+        {
+            GameManager.Instance.player.SellItem(id);
+        }*/
 }
