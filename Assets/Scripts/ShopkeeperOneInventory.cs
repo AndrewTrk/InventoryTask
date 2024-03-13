@@ -3,30 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class ShopkeeperOneInventory : PlayerInventory
 {
-    public event EventHandler OnItemListChanged;
+ /*   public event EventHandler OnItemListChanged;
 
     private List<ScriptableObject> inventoryItems;
 
-    public PlayerInventory() {
+    public ShopkeeperOneInventory() {
         inventoryItems = new List<ScriptableObject>();
     }
-    // add inventory items 
     public void AddItem(ScriptableObject item) {
-        Debug.Log("item added"+ item.name);
         inventoryItems.Add(item);
+        printItems();
         OnItemListChanged?.Invoke(this,EventArgs.Empty);
     }
 
-    // remove inventory items
     public void RemoveItem(ScriptableObject item)
     {
         inventoryItems.Remove(item);
+        printItems();
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
-    // return list of items
+
     public List<ScriptableObject>  getItemsList() {
         return inventoryItems;
     }
+
+    public void printItems() {
+        Debug.Log("Items == "+ inventoryItems.Count);
+    }*/
 }
