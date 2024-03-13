@@ -4,14 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SellItems : MonoBehaviour
+public class Items : MonoBehaviour
 {
     private int itemID;
-
-    void Start()
-    {
-        
-    }
     public int getItemId() {
         return itemID;
     }

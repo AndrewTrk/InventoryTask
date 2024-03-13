@@ -3,20 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
     public event EventHandler OnItemListChanged;
 
     private List<ScriptableObject> inventoryItems;
 
-    public PlayerInventory() {
+    public Inventory()
+    {
         inventoryItems = new List<ScriptableObject>();
     }
     // add inventory items 
-    public void AddItem(ScriptableObject item) {
-        Debug.Log("item added"+ item.name);
+    public void AddItem(ScriptableObject item)
+    {
+        Debug.Log("item added" + item.name);
         inventoryItems.Add(item);
-        OnItemListChanged?.Invoke(this,EventArgs.Empty);
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     // remove inventory items
@@ -26,7 +28,8 @@ public class PlayerInventory : MonoBehaviour
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
     // return list of items
-    public List<ScriptableObject>  getItemsList() {
+    public List<ScriptableObject> getItemsList()
+    {
         return inventoryItems;
     }
 }

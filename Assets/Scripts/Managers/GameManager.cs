@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    [Header("Characters")]
     public Player player;
     public ShopkeeperOne shopkeeperOne;
     public ShopkeeperTwo shopkeeperTwo;
 
+    [Header("Invenetories")]
     public PlayerInventory playerInventory;
     public ShopkeeperOneInventory shopkeeperOneInventory;
     public ShopkeeperTwoInventory shopkeeperTwoInventory;
+
+    [Header("Managers")]
     public UIManager inventoryUi;
     public ResourcesManager resourcesManager;
     public static GameManager Instance { get; private set; }
@@ -32,8 +35,6 @@ public class GameManager : MonoBehaviour
 
         inventoryUi.setInventory(playerInventory);
         inventoryUi.setSkOneInventory(shopkeeperOneInventory);
-        inventoryUi.setSkTwoInventory(shopkeeperTwoInventory);
-
-       
+        inventoryUi.setSkTwoInventory(shopkeeperTwoInventory);       
     }
 }

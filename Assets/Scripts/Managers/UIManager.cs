@@ -8,15 +8,18 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
     //coins UI
+    [Header("coins UI")]
     [SerializeField] private TMP_Text coinsText;
     [SerializeField] private TMP_Text bankBalanceText;
 
     //Sleep ui
+    [Header("Sleep UI")]
     [SerializeField] private TMP_Text sleepText;
     [SerializeField] private RectTransform sleepPanel;
 
 
     // backpack panel ui
+    [Header("backpack UI")]
     [SerializeField] private Image sk1Image;
     [SerializeField] private Image sk2Image;
     private bool shopkeeperbuttonState;
@@ -24,17 +27,21 @@ public class UIManager : MonoBehaviour
     private PlayerInventory inventory;
     private ShopkeeperOneInventory shopkeeperOneInventory;
     private ShopkeeperTwoInventory shopkeeperTwoInventory;
+
     //player data
+    [Header("player UI")]
     [SerializeField] private Transform BackbackPanel;
     [SerializeField] private Transform templateItem;
     [SerializeField] private List<Transform> InstantiatedItems;
-    
+
     // shopkeeperone data
+    [Header("shopkeeper 1 UI")]
     [SerializeField] private Transform skOneBackbackPanel;
     [SerializeField] private Transform skOnetemplateItem;
     [SerializeField] private List<Transform> skOneInstantiatedItems;
-    
+
     //shopkeepertwo data
+    [Header("shopkeeper 2 UI")]
     [SerializeField] private Transform skTwoBackbackPanel;
     [SerializeField] private Transform skTwotemplateItem;
     [SerializeField] private List<Transform> skTwoInstantiatedItems;
@@ -130,7 +137,7 @@ public class UIManager : MonoBehaviour
             Transform inventoryItem = Instantiate(templateItem, BackbackPanel) ;
             inventoryItem.GetChild(0).GetComponent<Image>().sprite = item.icon;
             inventoryItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.price.ToString();
-            inventoryItem.GetChild(1).GetComponent<SellItems>().setItemID(item.id);
+            inventoryItem.GetChild(1).GetComponent<Items>().setItemID(item.id);
             
             //sell item from Player  to the shopkeeper 1 
             inventoryItem.GetChild(1).GetComponent<Button>().onClick.AddListener(() => {
@@ -175,7 +182,7 @@ public class UIManager : MonoBehaviour
             Transform inventoryItem = Instantiate(skOnetemplateItem, skOneBackbackPanel);
             inventoryItem.GetChild(0).GetComponent<Image>().sprite = item.icon;
             inventoryItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.price.ToString();
-            inventoryItem.GetChild(1).GetComponent<SellItems>().setItemID(item.id);
+            inventoryItem.GetChild(1).GetComponent<Items>().setItemID(item.id);
             
             //inventoryItem.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { sellFromPlayerToSkOne(item.id); });
             
@@ -227,7 +234,7 @@ public class UIManager : MonoBehaviour
             Transform inventoryItem = Instantiate(skTwotemplateItem, skTwoBackbackPanel);
             inventoryItem.GetChild(0).GetComponent<Image>().sprite = item.icon;
             inventoryItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.price.ToString();
-            inventoryItem.GetChild(1).GetComponent<SellItems>().setItemID(item.id);
+            inventoryItem.GetChild(1).GetComponent<Items>().setItemID(item.id);
             
             //sell item from shopkeeper 2 to the player 
             inventoryItem.GetChild(1).GetComponent<Button>().onClick.AddListener(() => {
@@ -265,7 +272,7 @@ public class UIManager : MonoBehaviour
             //switch clicklistener callback
             foreach (Transform item in InstantiatedItems)
             {
-                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                int id = item.GetChild(1).GetComponent<Items>().getItemId();
                 item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
                 item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk1(id); });
             }
@@ -279,7 +286,7 @@ public class UIManager : MonoBehaviour
             //switch clicklistener callback
             foreach (Transform item in InstantiatedItems)
             {
-                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                int id = item.GetChild(1).GetComponent<Items>().getItemId();
                 item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
                 item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk2(id); });
             }
@@ -297,7 +304,7 @@ public class UIManager : MonoBehaviour
             //switch clicklistener callback
             foreach (Transform item in InstantiatedItems)
             {
-                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                int id = item.GetChild(1).GetComponent<Items>().getItemId();
                 item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
                 item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk1(id); });
             }
@@ -310,7 +317,7 @@ public class UIManager : MonoBehaviour
             //switch clicklistener callback
             foreach (Transform item in InstantiatedItems)
             {
-                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                int id = item.GetChild(1).GetComponent<Items>().getItemId();
                 item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
                 item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk2(id); });
             }

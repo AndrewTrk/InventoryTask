@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ResourcesManager : MonoBehaviour
 {
+    [Header("Bank And Coins")]
     [SerializeField] private int coins = 1000;
     [SerializeField] private int bankCoins = 3000;
 
