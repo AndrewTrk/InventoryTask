@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
+
 public class UIManager : MonoBehaviour
 {
     //coins UI
     [SerializeField] private TMP_Text coinsText;
     [SerializeField] private TMP_Text bankBalanceText;
+
+    //Sleep ui
+    [SerializeField] private TMP_Text sleepText;
+    [SerializeField] private RectTransform sleepPanel;
 
 
     // backpack panel ui
@@ -73,6 +79,35 @@ public class UIManager : MonoBehaviour
 
     }
     #endregion
+
+    #region Sleep
+    public void StartSleepAnimation() {
+        StartCoroutine(Sleep());
+    }
+
+    IEnumerator Sleep() {
+        sleepText.text = "Sleeping";
+        yield return new WaitForSeconds(0.5f);
+        sleepText.text = "Sleeping.";
+        yield return new WaitForSeconds(0.5f);
+        sleepText.text = "Sleeping..";
+        yield return new WaitForSeconds(0.5f);
+        sleepText.text = "Sleeping...";
+        yield return new WaitForSeconds(0.5f);
+        sleepText.text = "Sleeping";
+        yield return new WaitForSeconds(0.5f);
+        sleepText.text = "Sleeping.";
+        yield return new WaitForSeconds(0.5f);
+        sleepText.text = "Sleeping..";
+        yield return new WaitForSeconds(0.5f);
+        sleepText.text = "Sleeping...";
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.resourcesManager.Addtobank10Percent();
+        onBalanceChanged();
+        sleepPanel.gameObject.SetActive(false);
+    }
+    #endregion
+
     #region Player Inventory UI
     // set the  player inventory list for the inventory ui to populated later with changes 
     public void setInventory(PlayerInventory inventory) {

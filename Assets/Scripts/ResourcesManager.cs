@@ -26,6 +26,13 @@ public class ResourcesManager : MonoBehaviour
 
     }
 
+    public void Addtobank10Percent()
+    {
+        bankCoins += bankCoins * 10 /100;
+        Debug.Log("Added 10% to Current Bank balance = " + bankCoins);
+
+    }
+
     public void deduceFromCoins(int amount)
     {
         coins -= amount;
