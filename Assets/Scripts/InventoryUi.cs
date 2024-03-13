@@ -169,17 +169,18 @@ public class InventoryUi : MonoBehaviour
     public void SwitchShopkeeperstoSellTo() {
         if (shopkeeperbuttonState)
         {
-            //sell to sk1 , so switch images and click listenerr
+            //sell to sk1 , so switch images and clicklistener callback
             sk1Image.gameObject.SetActive(true);
             sk2Image.gameObject.SetActive(false);
             shopkeeperbuttonState = false;
 
+            //switch clicklistener callback
             foreach (Transform item in InstantiatedItems)
             {
                 int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
                 item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
                 item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk1(id); });
-                  }
+            }
         }
         else {
             //sell to sk2
@@ -187,6 +188,38 @@ public class InventoryUi : MonoBehaviour
             sk2Image.gameObject.SetActive(true);
             shopkeeperbuttonState = true;
 
+            //switch clicklistener callback
+            foreach (Transform item in InstantiatedItems)
+            {
+                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
+                item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk2(id); });
+            }
+
+        }
+    }
+
+    public void UpdateShopkeepersStatetoSellTo()
+    {
+        if (!shopkeeperbuttonState)
+        {
+            //sell to sk1 , so switch images and clicklistener callback
+            sk1Image.gameObject.SetActive(true);
+            sk2Image.gameObject.SetActive(false);
+            //switch clicklistener callback
+            foreach (Transform item in InstantiatedItems)
+            {
+                int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
+                item.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
+                item.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { SellFromPlayerTosk1(id); });
+            }
+        }
+        else
+        {
+            //sell to sk2
+            sk1Image.gameObject.SetActive(false);
+            sk2Image.gameObject.SetActive(true);
+            //switch clicklistener callback
             foreach (Transform item in InstantiatedItems)
             {
                 int id = item.GetChild(1).GetComponent<SellItems>().getItemId();
@@ -201,12 +234,14 @@ public class InventoryUi : MonoBehaviour
     {
         GameManager.Instance.player.SellItem(id);
         GameManager.Instance.shopkeeperOne.PurchaseItem(id);
+        UpdateShopkeepersStatetoSellTo();
     }
 
     private void SellFromPlayerTosk2(int id)
     {
         GameManager.Instance.player.SellItem(id);
         GameManager.Instance.shopkeeperTwo.PurchaseItem(id);
+        UpdateShopkeepersStatetoSellTo();
     }
     #endregion
     /*    private void sellFromPlayerToSkOne(int id)
