@@ -2,10 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class InventoryUi : MonoBehaviour
+using TMPro;
+public class UIManager : MonoBehaviour
 {
+    //coins UI
+    [SerializeField] private TMP_Text coinsText;
+    [SerializeField] private TMP_Text bankBalanceText;
 
+
+    // backpack panel ui
     [SerializeField] private Image sk1Image;
     [SerializeField] private Image sk2Image;
     private bool shopkeeperbuttonState;
@@ -28,7 +33,46 @@ public class InventoryUi : MonoBehaviour
     [SerializeField] private Transform skTwotemplateItem;
     [SerializeField] private List<Transform> skTwoInstantiatedItems;
 
+    private void Start()
+    {
+        GameManager.Instance.player.BalanceChanged += onBalanceChanged;
+        onBalanceChanged();
+    }
 
+    private void onBalanceChanged()
+    {
+        //update coins ui
+        coinsText.text = GameManager.Instance.resourcesManager.GetCoins().ToString();
+        bankBalanceText.text = GameManager.Instance.resourcesManager.GetBankAccountBalance().ToString();
+    }
+
+    #region BankUI
+    public void WithdrawtenDollorsFromBank()
+    {
+        if (GameManager.Instance.resourcesManager.GetBankAccountBalance() < 10)
+        {
+            Debug.Log("Sorry not enough Balance , can't withdraw cash");
+            return;
+        }
+        GameManager.Instance.resourcesManager.deduceFromBank(10);
+        GameManager.Instance.resourcesManager.AddtoCoins(10);
+        onBalanceChanged();
+
+    }
+
+    public void DeposittenDollorsToBank()
+    {
+        if (GameManager.Instance.resourcesManager.GetCoins() < 10)
+        {
+            Debug.Log("Sorry not enough Coins , can't Deposit cash");
+            return;
+        }
+        GameManager.Instance.resourcesManager.deduceFromCoins(10);
+        GameManager.Instance.resourcesManager.Addtobank(10);
+        onBalanceChanged();
+
+    }
+    #endregion
     #region Player Inventory UI
     // set the  player inventory list for the inventory ui to populated later with changes 
     public void setInventory(PlayerInventory inventory) {
@@ -50,6 +94,7 @@ public class InventoryUi : MonoBehaviour
         foreach (InventoryItem item in inventory.getItemsList()) {
             Transform inventoryItem = Instantiate(templateItem, BackbackPanel) ;
             inventoryItem.GetChild(0).GetComponent<Image>().sprite = item.icon;
+            inventoryItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.price.ToString();
             inventoryItem.GetChild(1).GetComponent<SellItems>().setItemID(item.id);
             
             //sell item from Player  to the shopkeeper 1 
@@ -94,14 +139,18 @@ public class InventoryUi : MonoBehaviour
         {
             Transform inventoryItem = Instantiate(skOnetemplateItem, skOneBackbackPanel);
             inventoryItem.GetChild(0).GetComponent<Image>().sprite = item.icon;
+            inventoryItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.price.ToString();
             inventoryItem.GetChild(1).GetComponent<SellItems>().setItemID(item.id);
             
             //inventoryItem.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { sellFromPlayerToSkOne(item.id); });
             
             //sell item from shopkeeper 1 to the player 
             inventoryItem.GetChild(1).GetComponent<Button>().onClick.AddListener(() => {
-                GameManager.Instance.player.PurchaseItem(item.id);
-                GameManager.Instance.shopkeeperOne.SellItem(item.id); 
+                //only remove the items from the shop if the player was able to purchase
+                if (GameManager.Instance.player.PurchaseItem(item.id))
+                {
+                    GameManager.Instance.shopkeeperOne.SellItem(item.id);
+                }
             });
             skOneInstantiatedItems.Add(inventoryItem);
         }
@@ -142,12 +191,16 @@ public class InventoryUi : MonoBehaviour
         {
             Transform inventoryItem = Instantiate(skTwotemplateItem, skTwoBackbackPanel);
             inventoryItem.GetChild(0).GetComponent<Image>().sprite = item.icon;
+            inventoryItem.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.price.ToString();
             inventoryItem.GetChild(1).GetComponent<SellItems>().setItemID(item.id);
             
             //sell item from shopkeeper 2 to the player 
             inventoryItem.GetChild(1).GetComponent<Button>().onClick.AddListener(() => {
-                GameManager.Instance.player.PurchaseItem(item.id);
-                GameManager.Instance.shopkeeperTwo.SellItem(item.id);
+                //only remove the items from the shop if the player was able to purchase
+                if (GameManager.Instance.player.PurchaseItem(item.id))
+                {
+                    GameManager.Instance.shopkeeperTwo.SellItem(item.id);
+                }
             });
             skTwoInstantiatedItems.Add(inventoryItem);
         }

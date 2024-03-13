@@ -1037,7 +1037,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 221625687}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 527534537}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: WithdrawtenDollorsFromBank
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &221625687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,7 +1691,7 @@ GameObject:
   - component: {fileID: 527534538}
   - component: {fileID: 527534537}
   m_Layer: 0
-  m_Name: InventoryUIManager
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1697,6 +1709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49defeec295a1a14caa62a46cb3bee0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinsText: {fileID: 898802432}
+  bankBalanceText: {fileID: 1402059549}
   sk1Image: {fileID: 1768776104}
   sk2Image: {fileID: 576708958}
   BackbackPanel: {fileID: 444958567}
@@ -2252,7 +2266,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 599922845}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 527534537}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: DeposittenDollorsToBank
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &599922845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2894,7 +2920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &773894671
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4170,7 +4196,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5700,6 +5726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4aab24a68d535a4d8d1f268ff574edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coins: 1000
+  bankCoins: 3000
   items:
   - {fileID: 11400000, guid: 46235954996510547aea8d6bee2bef3b, type: 2}
   - {fileID: 11400000, guid: dab9e3a680bfac847ad3cfbd70578aff, type: 2}
@@ -6250,7 +6278,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
